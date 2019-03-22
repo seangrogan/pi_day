@@ -1,22 +1,19 @@
-from math import gcd, sqrt, pi
 import argparse, time
 try:
     from numpy.random import randint as rnd
+    from numpy import gcd, sqrt, pi
 except ImportError:
     from random import randint as rnd
+    from math import gcd, sqrt, pi
 
 
-def pi(**kwargs):
+def pi(max_int=120, n=500):
     """ Computes pi with coprimes.
     :param max_int: upper bound of the random integers
     :param n: gets the number of trials to execute
     :return: Estimate of pi
     """
-    return sqrt(6 / (sum(
-        [1 if 1 == gcd(rnd(1, kwargs.get('max_int', default=120)), rnd(1, kwargs.get('max_int', default=120)))
-         else 0
-         for i in range(kwargs.get('n', default=500))]
-    ) / kwargs.get('n', default=500)))
+    return sqrt(6/(sum([1 for i in range(n) if 1 == gcd(rnd(1, max_int), rnd(1, max_int))]) / n))
 
 
 def _pi_from_coprimes():
