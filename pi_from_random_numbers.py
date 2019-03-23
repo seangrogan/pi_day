@@ -7,25 +7,23 @@ except ImportError:
 import time
 
 """ 
-Estimates the value of Pi by randomly picking two (pseudo) random real 
-(floating point) numbers in the range of [0.0, 1.0[.  The two random numbers 
-are then considered a point [x,y].  It then tests if the point is within one
-unit of the origin.  The ratio of the number of points inside to total points 
-should tend to pi over several thousand iterations.  A test execution showing 
-this is at the end of the script.  
+Estimates the value of Pi by randomly picking two random real (floating point) 
+numbers in the range of [0.0, 1.0[. The two random numbers are then considered 
+a point [x,y].  It then tests if the point is within one unit of the origin.  
+The ratio of the number of points inside to total points should tend to pi over 
+several thousand iterations.  A test execution showing this is at the end of 
+the script.  
 """
 
 
 def pi(n=100):
-    """ Computes pi with random points
-    :param n:
-    :return:
-    """
-    return 4 * sum([1 for i in range(n) if (sqrt(rnd() ** 2 + rnd() ** 2) <= 1)]) / n
+    return 4 * sum((rnd() ** 2 + rnd() ** 2 <= 1) for _ in range(n)) / n
 
 
 if __name__ == "__main__":
-    n = 1000
+    sims = 10000000
+    print('n:', sims)
     t1 = time.time()
-    print(pi(n=n))
+    print('pi:', pi(n=sims))
     t2 = time.time()
+    print('t:', t2 - t1)
